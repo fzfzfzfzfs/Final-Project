@@ -1,5 +1,0 @@
-mkdir raw-data
-mv /path/to/your/WIF-tis4d.xlsx raw-data/
-git add raw-data/data_2024_03_19.xlsx
-git commit -m "Add data from Karl dated 2024.03.19 to raw-data directory"
-git push origin main
