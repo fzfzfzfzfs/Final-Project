@@ -1,4 +1,4 @@
-pacman::p.load(openxlsx, tidyverse, ggplot2, ggpubr, xtable, extrafont)
+pacman::p_load(openxlsx, tidyverse, ggplot2, ggpubr, xtable, extrafont)
 
 # Read the data into R
 data <- read.xlsx("2024-03-19-WIF-tis4d.xlsx")
