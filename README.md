@@ -201,38 +201,45 @@ Decide on best model
 ```{r}
 data_tune |> autoplot()
 show_best(data_tune, metric = "rmse")
+
+data_wf <- data_wf |> 
+  finalize_workflow(penalty)
+data_wf
 ```
 ![Amount of regularization](https://github.com/fzfzfzfzfs/Final-Project/assets/168513907/80c2e74f-0ad5-42e0-93b9-5017e2f09d9d)
 ![Performan cemetrics of various models after tuning](https://github.com/fzfzfzfzfs/Final-Project/assets/168513907/fbbdf63f-ceae-41ed-87d6-5797115c1308)
 ![Workflow](https://github.com/fzfzfzfzfs/Final-Project/assets/168513907/d717da69-a178-48ca-9188-8edaeec41533)
 
 
-
+Fit final model
 ```{r}
-
+data_fit <- data_wf |> fit(data_train)
+data_fit |> 
+  extract_fit_parsnip() |> 
+  vip::vi() |>
+  filter(Importance > 0.2) |> 
+  mutate(
+    Variable = str_remove_all(Variable, "tfidf_review_"), 
+    Variable = fct_reorder(Variable, Importance)
+  ) |> 
+  ggplot(aes(Importance, Variable, fill = Sign)) + 
+  geom_col() + 
+  harrypotter::scale_fill_hp_d("Ravenclaw")
+data_fit |> extract_fit_engine() |> autoplot()
 ```
+![Fit model 1](https://github.com/fzfzfzfzfs/Final-Project/assets/168513907/5e16cec0-db2b-4731-84ea-41d40faebc04)
+![Fit model 2](https://github.com/fzfzfzfzfs/Final-Project/assets/168513907/921ca182-9376-47cd-92bb-796a4c3c2128)
 
 
 
-
-
-
-
+Last fit
 ```{r}
-
+last_fit(data_wf, data_split) |> collect_metrics()
 ```
+![The results of the last model fit](https://github.com/fzfzfzfzfs/Final-Project/assets/168513907/c7534069-fca0-4b67-9a22-a550782248ba)
 
 
 
-
-```{r}
-
-```
-
-
-```{r}
-
-```
 
 
 
