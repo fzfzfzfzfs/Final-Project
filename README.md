@@ -195,6 +195,22 @@ data_tune <- tune_grid(
 )
 collect_metrics(data_tune)
 ```
+![Tune model](https://github.com/fzfzfzfzfs/Final-Project/assets/168513907/f3f5e1e6-c191-419d-b2e0-d96fb97c8f5c)
+
+Decide on best model
+```{r}
+data_tune |> autoplot()
+show_best(data_tune, metric = "rmse")
+```
+![Amount of regularization](https://github.com/fzfzfzfzfs/Final-Project/assets/168513907/80c2e74f-0ad5-42e0-93b9-5017e2f09d9d)
+![Performan cemetrics of various models after tuning](https://github.com/fzfzfzfzfs/Final-Project/assets/168513907/fbbdf63f-ceae-41ed-87d6-5797115c1308)
+![Workflow](https://github.com/fzfzfzfzfs/Final-Project/assets/168513907/d717da69-a178-48ca-9188-8edaeec41533)
+
+
+
+```{r}
+
+```
 
 
 
@@ -202,18 +218,21 @@ collect_metrics(data_tune)
 
 
 
+```{r}
+
+```
 
 
 
 
+```{r}
+
+```
 
 
+```{r}
 
-
-
-
-
-
+```
 
 
 
