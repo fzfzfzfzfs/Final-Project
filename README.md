@@ -49,7 +49,11 @@ plot(gpk)
 
 # Project2
 ```{r}
-# Create a tiff file
+pacman::p_load(openxlsx, tidyverse, ggplot2, ggpubr, xtable, extrafont)
+```
+
+Create a tiff file
+```{r}
 data$name <- sub("^GL-", "", data$name)
 
 last_observation <- data %>%
@@ -115,16 +119,15 @@ plot2 = data_cell |>
   theme(text = element_text(family = "serif")) 
 ```
 
+Print a combined plot file
 ```{r}
-# Print a combined plot file
 plot = ggarrange(plot1, plot2, ncol = 2, common.legend = T, legend = "bottom")
 ```
 ![combine plot](https://github.com/fzfzfzfzfs/Final-Project/assets/168513907/723f5bd6-8d53-4834-bcec-a6c6666f1f7b)
 
 
-
+Upload a tiff file
 ```{r}
-# Upload a tiff file
 tiff("plot.tiff", width = 9, height = 6, units = "in", res = 500)
 print(plot)
 dev.off()
@@ -155,17 +158,10 @@ data_train <- training(data_split)
 data_test <- testing(data_split)
 data_cv <- vfold_cv(data_train)
 data_cv
-data_recipe <- 
-  recipe(gene_expression ~ name, data = data_train) |>
-  step_tokenize(name) |>
-  step_tokenfilter(name, max_tokens = 100) |>
-  step_tfidf(name)
-
-data_model <- linear_reg(penalty = tune(), mixture = 1) |> 
-  set_mode("regression") |> 
-  set_engine("glmnet")
 ```
-```{table}
+\begin{table}[h!]
+\centering
+\begin{tabular}{ccc}
 \# A tibble: 10 $\times$ 2 & \\
 & splits & id \\
 1 & \verb|<split [57/7]>| &Fold01 \\
@@ -178,7 +174,25 @@ data_model <- linear_reg(penalty = tune(), mixture = 1) |>
 8 & \verb|<split [58/6]>| &Fold08 \\
 9 & \verb|<split [58/6]>| &Fold09 \\
 10 & \verb|<split [58/6]>| &Fold10 \\
+\end{tabular}
+\caption{The visualization of model performance.}
+\label{tab:data}
+\end{table}
+
+
+```{r}
+data_recipe <- 
+  recipe(gene_expression ~ name, data = data_train) |>
+  step_tokenize(name) |>
+  step_tokenfilter(name, max_tokens = 100) |>
+  step_tfidf(name)
+
+data_model <- linear_reg(penalty = tune(), mixture = 1) |> 
+  set_mode("regression") |> 
+  set_engine("glmnet")
 ```
+
+
 
 
 
