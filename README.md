@@ -1,7 +1,6 @@
 # Final-Project
 All completed assignments from karl.
 
-# Project1
 ```{r}
 pacman::p_load(tidyverse, openxlsx, GauPro)
 
@@ -25,9 +24,9 @@ data$name <- gsub("Gl-Zhw", "GL-ZHw", data$name)
 data$name <- gsub("Gl-Cwn", "GL-cwN", data$name)
 ```
 
+# Project1
 Plot all the data
 ```{r}
-# Plot all the data
 x = 0:1:10
 XIb = data$gene_expression[data$name == "GL-XIb"]
 cDZ = data$gene_expression[data$name == "GL-cDZ"]
@@ -46,6 +45,8 @@ kern <- Matern52$new(0)
 gpk <- GauPro_kernel_model$new(matrix(x, ncol=1), XIb, kernel=kern, parallel=FALSE)
 plot(gpk)
 ```
+![GL-XIb](https://github.com/fzfzfzfzfs/Final-Project/assets/168513907/84ad75a3-6bc9-4b31-909b-b187ec47f637)
+
 
 ```{r}
 
