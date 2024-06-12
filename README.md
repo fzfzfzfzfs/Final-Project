@@ -165,6 +165,7 @@ data_model <- linear_reg(penalty = tune(), mixture = 1) |>
   set_mode("regression") |> 
   set_engine("glmnet")
 ```
+```
 \# A tibble: 10 $\times$ 2 & \\
 & splits & id \\
 1 & \verb|<split [57/7]>| &Fold01 \\
@@ -177,7 +178,7 @@ data_model <- linear_reg(penalty = tune(), mixture = 1) |>
 8 & \verb|<split [58/6]>| &Fold08 \\
 9 & \verb|<split [58/6]>| &Fold09 \\
 10 & \verb|<split [58/6]>| &Fold10 \\
-
+```
 
 
 
