@@ -142,6 +142,7 @@ Calculate the sample size of linear regression
 ```{r}
 pwr.r.test(r = sqrt(0.1), sig.level = 0.05, power = 0.9)
 ```
+![Sample result](https://github.com/fzfzfzfzfs/Final-Project/assets/168513907/74945cf8-b87a-4293-bebe-d3d9468dd839)
 
 
 
@@ -159,27 +160,10 @@ data_test <- testing(data_split)
 data_cv <- vfold_cv(data_train)
 data_cv
 ```
-\begin{table}[h!]
-\centering
-\begin{tabular}{ccc}
-\# A tibble: 10 $\times$ 2 & \\
-& splits & id \\
-1 & \verb|<split [57/7]>| &Fold01 \\
-2 & \verb|<split [57/7]>| &Fold02 \\
-3 & \verb|<split [57/7]>| &Fold03 \\
-4 & \verb|<split [57/7]>| &Fold04 \\
-5 & \verb|<split [58/6]>| &Fold05 \\
-6 & \verb|<split [58/6]>| &Fold06 \\
-7 & \verb|<split [58/6]>| &Fold07 \\
-8 & \verb|<split [58/6]>| &Fold08 \\
-9 & \verb|<split [58/6]>| &Fold09 \\
-10 & \verb|<split [58/6]>| &Fold10 \\
-\end{tabular}
-\caption{The visualization of model performance.}
-\label{tab:data}
-\end{table}
+![Model performance](https://github.com/fzfzfzfzfs/Final-Project/assets/168513907/fda45ffe-5fa9-4629-ade2-b2df0c361d33)
 
 
+Spliting
 ```{r}
 data_recipe <- 
   recipe(gene_expression ~ name, data = data_train) |>
@@ -193,19 +177,23 @@ data_model <- linear_reg(penalty = tune(), mixture = 1) |>
 ```
 
 
-
-
-
-
-
+Workflow
 ```{r}
+data_wf <- workflow(data_recipe, data_model)
+doParallel::registerDoParallel()
 
+data_grid <- grid_regular(penalty(), levels = 50)
 ```
 
 
-
+Tune model
 ```{r}
-
+data_tune <- tune_grid(
+  data_wf, 
+  resamples = data_cv, 
+  grid = data_grid
+)
+collect_metrics(data_tune)
 ```
 
 
